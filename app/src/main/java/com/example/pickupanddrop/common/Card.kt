@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -38,9 +39,13 @@ fun ClickableCard(
 ) {
     ElevatedCard(
         onClick = { /*TODO*/ },
-        modifier = Modifier.fillMaxWidth().height(150.dp)
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(150.dp)
     ) {
-        Box(modifier = Modifier.fillMaxSize().padding(all = 16.dp)) {
+        Box(modifier = Modifier
+            .fillMaxSize()
+            .padding(all = 16.dp)) {
             Row {
                 Image(
                     painter = image,
@@ -80,8 +85,8 @@ fun ClickableCard(
                         Text(
                             text = coupon,
                             style = MaterialTheme.typography.bodyLarge,
-                            fontWeight = FontWeight.Normal,
-                            color = Color.Black
+                            fontWeight = FontWeight.ExtraBold,
+                            color = colorResource(id = R.color.lightBlue),
                         )
                     }
                 }
@@ -98,7 +103,7 @@ fun ClickableCardPreview() {
     ClickableCard(
         image = painterResource(id = R.drawable.gift),
         heading = "Welcome Offer! Get 30% off on your first 5 deliveries",
-        subHeading = "Use coupon code",
+        subHeading = "Use coupon : ",
         coupon = "WELCOME30"
     )
 }

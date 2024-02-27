@@ -32,7 +32,9 @@ import com.example.pickupanddrop.common.ButtonwithIcon
 import com.example.pickupanddrop.common.ClickableCard
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(
+    navigateToUpcoming: () -> Unit
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -42,7 +44,7 @@ fun HomeScreen() {
         ClickableCard(
             image = painterResource(id = R.drawable.gift),
             heading = "Welcome Offer! Get 30% off on your first 5 deliveries",
-            subHeading = "Use coupon ",
+            subHeading = "Use coupon : ",
             coupon = "WELCOME30"
         )
 
@@ -96,5 +98,7 @@ fun HomeScreen() {
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun HomeScreenPreview() {
-    HomeScreen()
+    HomeScreen(
+        navigateToUpcoming = {}
+    )
 }
