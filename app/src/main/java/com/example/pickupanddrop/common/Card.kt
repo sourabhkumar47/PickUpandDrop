@@ -69,7 +69,7 @@ fun ClickableCard(
                         text = heading,
                         style = MaterialTheme.typography.bodyLarge,
                         fontWeight = FontWeight.Bold,
-                        color = Color.Black
+//                        color = Color.Black
                     )
 
                     Row {
@@ -77,7 +77,7 @@ fun ClickableCard(
                             text = subHeading,
                             style = MaterialTheme.typography.bodyLarge,
                             fontWeight = FontWeight.Bold,
-                            color = Color.Gray
+//                            color = Color.Gray
                         )
 
                         Spacer(modifier = Modifier.height(8.dp))

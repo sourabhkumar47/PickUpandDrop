@@ -73,7 +73,6 @@ fun HomeScreen(
                     text = "There are no active orders",
                     style = MaterialTheme.typography.bodyLarge,
                     fontWeight = FontWeight.Bold,
-                    color = Color.Black
                 )
 
                 Spacer(modifier = Modifier.height(24.dp))
