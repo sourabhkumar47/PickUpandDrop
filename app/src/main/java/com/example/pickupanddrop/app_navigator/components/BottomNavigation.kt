@@ -45,10 +45,10 @@ fun BottomNavigation(
                         Icon(
                             painter = painterResource(id = item.icon),
                             contentDescription = null,
-                            modifier = Modifier.size(IconSize)
+                            modifier = Modifier.size(24.dp)
                         )
 
-                        Spacer(modifier = Modifier.height(16.dp))
+                        Spacer(modifier = Modifier.height(8.dp))
                         Text(text = item.text, style = MaterialTheme.typography.labelLarge)
                     }
                 },
