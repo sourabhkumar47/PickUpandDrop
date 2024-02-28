@@ -17,8 +17,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Call
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardElevation
@@ -211,21 +213,55 @@ fun PickUpLocationCard(
             val checkedStateForOTP = rememberSaveable {
                 mutableStateOf(false)
             }
-            Row(modifier = Modifier.padding(horizontal = 14.dp, vertical = 12.dp),verticalAlignment = Alignment.CenterVertically) {
+            Row(
+                modifier = Modifier.padding(horizontal = 14.dp, vertical = 12.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 Checkbox(
                     modifier = Modifier.size(16.dp),
                     checked = checkedStateForOTP.value, onCheckedChange = {
-                    checkedStateForOTP.value = it
-                })
+                        checkedStateForOTP.value = it
+                    })
                 Spacer(modifier = Modifier.width(12.dp))
-                Text(text = "OTP for pickup",
+                Text(
+                    text = "OTP for pickup",
                     fontSize = MaterialTheme.typography.labelMedium.fontSize,
                     fontWeight = labelFontWeight,
-                    fontStyle = MaterialTheme.typography.labelMedium.fontStyle)
+                    fontStyle = MaterialTheme.typography.labelMedium.fontStyle
+                )
             }
         }
 
     }
+}
+
+@Composable
+fun DropLocationCard(modifier: Modifier = Modifier) {
+    val blueBorderColor = Color.Blue.copy(0.7f)
+    ElevatedCard(
+        modifier = modifier.border(1.dp, blueBorderColor, RoundedCornerShape(8.dp))
+    ) {
+        Row(
+            modifier = Modifier.padding(14.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(12.dp)
+        ) {
+            Column(modifier = Modifier.border(1.dp, blueBorderColor, CircleShape)) {
+                Icon(
+                    imageVector = Icons.Filled.Add,
+                    contentDescription = "add drop location",
+                    tint = blueBorderColor
+                )
+            }
+            Text(text = "Add drop Location")
+        }
+    }
+}
+
+@Preview
+@Composable
+fun DropLocationCardPreview() {
+    DropLocationCard()
 }
 
 @Preview
