@@ -1,5 +1,6 @@
 package com.example.pickupanddrop.delivery.presentation.deliveryDetails
 
+import android.content.Intent
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -12,12 +13,17 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.example.pickupanddrop.delivery.components.DropLocationCard
 import com.example.pickupanddrop.delivery.components.PickUpLocationCard
+import com.example.pickupanddrop.delivery.presentation.locationAndMaps.ChooseDropLocationActivity
 
 @Composable
 fun DeliveryDetailsScreen() {
+
+    val context = LocalContext.current
+
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
@@ -40,7 +46,7 @@ fun DeliveryDetailsScreen() {
             Spacer(modifier = Modifier.height(12.dp))
 
             DropLocationCard(modifier = Modifier.fillMaxWidth().clickable {
-
+                context.startActivity(Intent(context, ChooseDropLocationActivity::class.java))
             })
         }
     }

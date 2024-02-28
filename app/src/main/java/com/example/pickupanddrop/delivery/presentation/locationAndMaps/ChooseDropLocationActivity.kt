@@ -22,7 +22,7 @@ class ChooseDropLocationActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-
+                    ChooseLocationScreen(modifier = Modifier)
                 }
             }
         }
