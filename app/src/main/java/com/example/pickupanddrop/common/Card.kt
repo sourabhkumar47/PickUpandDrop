@@ -19,29 +19,33 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Call
 import androidx.compose.material3.Card
-import androidx.compose.material3.CardElevation
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -256,6 +260,133 @@ fun DropLocationCard(modifier: Modifier = Modifier) {
             Text(text = "Add drop Location")
         }
     }
+}
+
+
+@Composable
+fun AdditionalDetails(
+    modifier: Modifier = Modifier,
+    lengthState: MutableState<String>,
+    widthState: MutableState<String>,
+    heightState: MutableState<String>
+) {
+    Card(
+        modifier = modifier,
+        shape = RoundedCornerShape(8.dp)
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
+        ) {
+
+            var item by remember { mutableStateOf("") }
+            var dimen by remember { mutableStateOf("") }
+
+            Text(
+                text = "Additional Details",
+                fontWeight = FontWeight.Bold,
+                fontSize = MaterialTheme.typography.bodyLarge.fontSize
+            )
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            TextField(
+                value = item,
+                onValueChange = { item = it },
+                label = { Text("Enter item detail") },
+                leadingIcon = {
+                    Icon(
+                        imageVector = Icons.Filled.Add,
+                        contentDescription = "add item detail"
+                    )
+                }
+            )
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+//            TextField(
+//                value = dimen,
+//                onValueChange = { dimen = it },
+//                label = { Text("Enter dimensions") },
+//                leadingIcon = {
+//                    Icon(
+//                        imageVector = Icons.Filled.Menu,
+//                        contentDescription = "add item detail"
+//                    )
+//                }
+//            )
+
+            Text(
+                text = "Enter Dimensions (cm)",
+                fontWeight = FontWeight.Bold,
+                fontSize = MaterialTheme.typography.bodyLarge.fontSize
+            )
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Spacer(modifier = Modifier.weight(0.1f))
+                OutlinedTextField(
+                    value = lengthState.value,
+                    onValueChange = { newValue ->
+                        if (newValue.length <= 4) {
+                            lengthState.value = newValue
+                        }
+                    },
+                    label = { Text("Length") },
+                    modifier = Modifier
+                        .weight(1.5f),
+                    maxLines = 1,
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                )
+                Spacer(modifier = Modifier.weight(0.1f))
+                OutlinedTextField(
+                    value = widthState.value,
+                    onValueChange = { newValue ->
+                        if (newValue.length <= 4) {
+                            widthState.value = newValue
+                        }
+                    },
+                    label = { Text("Width") },
+                    modifier = Modifier
+                        .weight(1.5f),
+                    maxLines = 1,
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                )
+                Spacer(modifier = Modifier.weight(0.1f))
+                OutlinedTextField(
+                    value = heightState.value,
+                    onValueChange = { newValue ->
+                        if (newValue.length <= 4) {
+                            heightState.value = newValue
+                        }
+                    },
+                    label = { Text("Height") },
+                    modifier = Modifier
+                        .weight(1.5f),
+                    maxLines = 1,
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                )
+                Spacer(modifier = Modifier.weight(0.1f))
+            }
+
+
+        }
+    }
+}
+
+@Preview
+@Composable
+fun AdditionalDetailsPreview() {
+    AdditionalDetails(
+        lengthState = remember { mutableStateOf("10") },
+        widthState = remember { mutableStateOf("10") },
+        heightState = remember { mutableStateOf("10") }
+    )
 }
 
 @Preview
