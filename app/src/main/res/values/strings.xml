@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">PickUpandDrop</string>
+    <string name="title_activity_delivery_details">DeliveryDetails</string>
 </resources>
