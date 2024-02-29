@@ -13,11 +13,6 @@
         android:theme="@style/Theme.PickUpandDrop"
         tools:targetApi="31">
         <activity
-            android:name=".delivery.presentation.locationAndMaps.ChooseDropLocationActivity"
-            android:exported="false"
-            android:label="@string/title_activity_choose_drop_location"
-            android:theme="@style/Theme.PickUpandDrop" />
-        <activity
             android:name=".delivery.presentation.deliveryDetails.DeliveryDetailsActivity"
             android:exported="false"
             android:label="@string/title_activity_delivery_details"

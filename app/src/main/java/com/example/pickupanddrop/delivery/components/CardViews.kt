@@ -54,7 +54,7 @@ fun LocationDetailsCard(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(Color.Gray.copy(0.1f))
+                    .background(MaterialTheme.colorScheme.primaryContainer.copy(0.3f))
                     .padding(8.dp)
             ) {
                 Row {
