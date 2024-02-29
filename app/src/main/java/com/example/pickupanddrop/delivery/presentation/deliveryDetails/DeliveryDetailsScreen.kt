@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -30,6 +31,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun DeliveryDetailsScreen(
@@ -89,6 +91,25 @@ fun DeliveryDetailsScreen(
                 widthState = remember { mutableStateOf("") },
                 heightState = remember { mutableStateOf("") }
             )
+
+            Button(
+                onClick = { navController.navigate("checkout") },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(80.dp)
+                    .padding(top = 24.dp)
+            ) {
+                Text(text = "Continue")
+            }
         }
     }
+}
+
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun DeliveryDetailsScreenPreview() {
+    DeliveryDetailsScreen(
+        viewModel = MapsViewModel(),
+        navController = NavController(LocalContext.current)
+    )
 }
