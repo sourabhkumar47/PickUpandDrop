@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
@@ -28,6 +29,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -90,10 +92,27 @@ fun ChooseLocationScreen(
                 OutlinedTextField(
                     modifier = Modifier.weight(0.5f),
                     value = ownerPhone,
-                    onValueChange = { ownerPhone = it },
+                    onValueChange = { newValue ->
+                        if (newValue.length <= 10) {
+                            ownerPhone = newValue
+                        }
+                    },
                     label = { Text(text = "Phone No") },
                     singleLine = true,
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Number,
+                        imeAction = ImeAction.Done
+                    ),
+                    keyboardActions = KeyboardActions(
+                        onDone = {
+                            viewModel.updateDropLocationStatus(true)
+                            viewModel.updateDropLocationData(
+                                name = ownerName,
+                                phoneNo = ownerPhone
+                            )
+                            navController.popBackStack()
+                        }
+                    )
                 )
             }
             Spacer(modifier = Modifier.weight(1f))

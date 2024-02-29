@@ -295,18 +295,6 @@ fun AdditionalDetails(
 
             Spacer(modifier = Modifier.height(8.dp))
 
-//            TextField(
-//                value = dimen,
-//                onValueChange = { dimen = it },
-//                label = { Text("Enter dimensions") },
-//                leadingIcon = {
-//                    Icon(
-//                        imageVector = Icons.Filled.Menu,
-//                        contentDescription = "add item detail"
-//                    )
-//                }
-//            )
-
             Text(
                 text = "Enter Dimensions (cm)",
                 fontWeight = FontWeight.Bold,
