@@ -32,15 +32,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.pickupanddrop.delivery.Data.LocationData
 
 
 @Composable
-fun PickUpLocationCard(
+fun LocationDetailsCard(
     modifier: Modifier = Modifier,
-    franchiseName: String,
-    franchiseLocation: String,
-    ownerName: String,
-    ownerPhoneNo: String
+    locationData: LocationData,
+    onEditDetails: () -> Unit
 ) {
 
     val labelFontWeight = MaterialTheme.typography.labelMedium.fontWeight
@@ -60,7 +59,7 @@ fun PickUpLocationCard(
             ) {
                 Row {
                     Text(
-                        text = "PICKUP LOCATION",
+                        text = locationData.locationType,
                         fontSize = MaterialTheme.typography.labelMedium.fontSize,
                         fontStyle = MaterialTheme.typography.labelMedium.fontStyle,
                         fontWeight = labelFontWeight,
@@ -74,11 +73,11 @@ fun PickUpLocationCard(
                 // franchise name and its location
                 Row {
                     Text(
-                        text = "$franchiseName, ",
+                        text = "${locationData.franchiseName} ",
                         fontWeight = MaterialTheme.typography.labelMedium.fontWeight
                     )
                     Text(
-                        text = franchiseLocation,
+                        text = locationData.franchiseLocation,
                         fontStyle = MaterialTheme.typography.labelMedium.fontStyle,
                         fontWeight = MaterialTheme.typography.labelMedium.fontWeight,
                         color = Color.Gray,
@@ -100,16 +99,18 @@ fun PickUpLocationCard(
                     Spacer(modifier = Modifier.width(4.dp))
                     // owner name and phone no
                     Text(
-                        text = "$ownerName ($ownerPhoneNo)",
+                        text = "${locationData.ownerName} (${locationData.ownerPhoneNo})",
                         color = Color.Gray,
                         fontWeight = labelFontWeight,
                         fontStyle = MaterialTheme.typography.labelMedium.fontStyle,
                         fontSize = MaterialTheme.typography.labelMedium.fontSize
                     )
                     Spacer(modifier = Modifier.weight(1f))
-                    // edit details
+                    // edit details clickable text
                     Text(
-                        modifier = Modifier.clickable { },
+                        modifier = Modifier.clickable {
+                            onEditDetails()
+                        },
                         text = "Edit Details",
                         fontWeight = FontWeight(800),
                         fontSize = MaterialTheme.typography.labelMedium.fontSize,
@@ -141,7 +142,7 @@ fun PickUpLocationCard(
                     })
                 Spacer(modifier = Modifier.width(12.dp))
                 Text(
-                    text = "OTP for pickup",
+                    text = "OTP for ${locationData.otpFor}",
                     fontSize = MaterialTheme.typography.labelMedium.fontSize,
                     fontWeight = labelFontWeight,
                     fontStyle = MaterialTheme.typography.labelMedium.fontStyle
@@ -184,10 +185,15 @@ fun DropLocationCardPreview() {
 @Preview
 @Composable
 fun PickUpLocationCardPreview() {
-    PickUpLocationCard(
-        franchiseName = "Petuk Ji G.Noida Franchise",
-        franchiseLocation = "IT waala digital success D, 296 Greater Noida Wandra",
-        ownerName = "Vinay",
-        ownerPhoneNo = "7970783256"
+    LocationDetailsCard(
+        locationData = LocationData(
+            locationType = "PICKUP LOCATION",
+            franchiseName = "Petuk Ji G.Noida Franchise",
+            franchiseLocation = "IT waala digital success D, 296 Greater Noida Wandra",
+            ownerName = "Vinay",
+            ownerPhoneNo = "7970783256",
+            otpFor = "pickup"
+        ),
+        onEditDetails = {}
     )
 }

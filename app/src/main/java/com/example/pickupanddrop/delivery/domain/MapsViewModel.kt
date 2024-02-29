@@ -1,10 +1,8 @@
 package com.example.pickupanddrop.delivery.domain
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import com.example.pickupanddrop.delivery.Data.LocationData
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.launch
 
 class MapsViewModel: ViewModel() {
     // latitude
@@ -23,6 +21,14 @@ class MapsViewModel: ViewModel() {
     private var _isMapLoaded = MutableStateFlow(false)
     val isMapLoaded get() = _isMapLoaded
 
+    // drop location added status
+    private var _isDropLocationAdded = MutableStateFlow(false)
+    val isDropLocationAdded get() = _isDropLocationAdded
+
+    // location details
+    var _dropLocationData = MutableStateFlow(LocationData())
+    val dropLocationData get() = _dropLocationData
+
     // update latitude
     fun updateLatitude(latVal: Double){
         _lat.value = latVal
@@ -36,5 +42,19 @@ class MapsViewModel: ViewModel() {
     // update location name
     fun updateLocationName(name: String){
         _dropLocationName.value = name
+    }
+
+    // update drop location status
+    fun updateDropLocationStatus(status: Boolean){
+        _isDropLocationAdded.value = status
+    }
+
+    // update drop location data
+    fun updateDropLocationData(name: String, phoneNo: String){
+        _dropLocationData.value.locationType = "DROP LOCATION"
+        _dropLocationData.value.franchiseLocation = _dropLocationName.value
+        _dropLocationData.value.ownerName = name
+        _dropLocationData.value.ownerPhoneNo = phoneNo
+        _dropLocationData.value.otpFor = "receiver"
     }
 }
