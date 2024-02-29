@@ -29,10 +29,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.pickupanddrop.DeliveryDetails
 import com.example.pickupanddrop.R
 import com.example.pickupanddrop.common.ButtonwithIcon
 import com.example.pickupanddrop.common.ClickableCard
+import com.example.pickupanddrop.delivery.presentation.deliveryDetails.DeliveryDetailsActivity
 
 @Composable
 fun HomeScreen(
@@ -86,7 +86,7 @@ fun HomeScreen(
                     text = "Create a new order",
                     tint = Color.White,
                     onClick = {
-                        context.startActivity(Intent(context, DeliveryDetails::class.java))
+                        context.startActivity(Intent(context, DeliveryDetailsActivity::class.java))
                     },
                     modifier = Modifier
                         .fillMaxWidth()
