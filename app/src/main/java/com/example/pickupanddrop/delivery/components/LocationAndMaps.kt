@@ -1,6 +1,10 @@
 package com.example.pickupanddrop.delivery.components
 
 import android.util.Log
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.height
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -13,6 +17,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.dp
 import com.example.pickupanddrop.delivery.domain.MapsViewModel
 import com.example.pickupanddrop.delivery.presentation.locationAndMaps.getLocationName
 import com.google.android.gms.maps.model.CameraPosition
@@ -44,31 +49,38 @@ fun ChooseLocationFromMaps(
 
     val scope = rememberCoroutineScope()
 
-    // name of clicked location
-    var locationName by rememberSaveable {
-        mutableStateOf("Pickup drop location")
+    var isMapLoading by rememberSaveable {
+        mutableStateOf(true)
     }
-    GoogleMap(
-        modifier = modifier,
-        cameraPositionState = cameraPositionState,
-        onMapClick = { latLng ->
-            // update the position of the marker as the user clicks on the map
-            markerState.position = latLng
-            // update the coordinates according to the marker position
-            viewModel.updateLatitude(latLng.latitude)
-            viewModel.updateLongitude(latLng.longitude)
-        }
-    ) {
-        Marker(
-            state = markerState,
-            draggable = true,
-            title = "Location",
-            snippet = "Choose Drop location"
-        )
-        LaunchedEffect(lat, lng){
-            scope.launch {
-                viewModel.updateLocationName(getLocationName(context, lat, lng).toString())
-                Log.d("location_name", locationName)
+    Box(modifier = modifier) {
+        Column {
+            if (isMapLoading)
+                LinearProgressIndicator(modifier = Modifier.height(10.dp))
+
+            GoogleMap(
+                cameraPositionState = cameraPositionState,
+                onMapClick = { latLng ->
+                    // update the position of the marker as the user clicks on the map
+                    markerState.position = latLng
+                    // update the coordinates according to the marker position
+                    viewModel.updateLatitude(latLng.latitude)
+                    viewModel.updateLongitude(latLng.longitude)
+                },
+                onMapLoaded = {
+                    isMapLoading = false
+                }
+            ) {
+                Marker(
+                    state = markerState,
+                    draggable = true,
+                    title = "Location",
+                    snippet = "Choose Drop location"
+                )
+                LaunchedEffect(lat, lng) {
+                    scope.launch {
+                        viewModel.updateLocationName(getLocationName(context, lat, lng).toString())
+                    }
+                }
             }
         }
     }
