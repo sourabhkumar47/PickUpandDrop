@@ -47,7 +47,7 @@ fun AppNavigator() {
 
     val bottomNavigationItems = remember {
         listOf(
-            BottomNavigationItem(icon = R.drawable.baseline_home_filled_24, text = "Home"),
+            BottomNavigationItem(icon = R.drawable.baseline_home_filled_24, text = "Active"),
             BottomNavigationItem(icon = R.drawable.baseline_auto_mode_24, text = "Upcoming"),
             BottomNavigationItem(icon = R.drawable.baseline_history_24, text = "History"),
         )

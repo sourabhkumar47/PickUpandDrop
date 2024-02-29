@@ -16,6 +16,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
+import androidx.compose.material3.ExtendedFloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -77,27 +79,29 @@ fun HomeScreen(
                     style = MaterialTheme.typography.bodyLarge,
                     fontWeight = FontWeight.Bold,
                 )
-
                 Spacer(modifier = Modifier.height(24.dp))
-
-                val context = LocalContext.current
-                ButtonwithIcon(
-                    icon = R.drawable.baseline_add_24,
-                    text = "Create a new order",
-                    tint = Color.White,
-                    onClick = {
-                        context.startActivity(Intent(context, DeliveryDetailsActivity::class.java))
-                    },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(120.dp)
-                        .align(Alignment.CenterHorizontally)
-                        .padding(top = 24.dp)
-                )
             }
         }
-    }
+        Spacer(modifier = Modifier.height(24.dp))
 
+        val context = LocalContext.current
+        ExtendedFloatingActionButton(
+            text = { Text(text = "Create Order") },
+            icon = {
+                Icon(
+                    painter = painterResource(id = R.drawable.baseline_add_24),
+                    contentDescription = null
+                )
+            },
+            onClick = {
+                context.startActivity(Intent(context, DeliveryDetailsActivity::class.java))
+            },
+            shape = RoundedCornerShape(50),
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentSize(align = Alignment.BottomEnd)
+        )
+    }
 }
 
 @Preview(showBackground = true, showSystemUi = true)

@@ -13,14 +13,23 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.pickupanddrop.delivery.Data.LocationData
 import com.example.pickupanddrop.delivery.components.DropLocationCard
 import com.example.pickupanddrop.delivery.components.LocationDetailsCard
 import com.example.pickupanddrop.delivery.domain.MapsViewModel
+import com.example.pickupanddrop.common.AdditionalDetails
+import com.example.pickupanddrop.common.PickUpLocationCard
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalContext
 
 @Composable
 fun DeliveryDetailsScreen(
@@ -72,6 +81,14 @@ fun DeliveryDetailsScreen(
                     .clickable {
                         navController.navigate("choose_location")
                     })
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            AdditionalDetails(
+                lengthState = remember { mutableStateOf("") },
+                widthState = remember { mutableStateOf("") },
+                heightState = remember { mutableStateOf("") }
+            )
         }
     }
 }
