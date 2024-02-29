@@ -10,9 +10,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.ViewModelProvider
+import com.example.pickupanddrop.delivery.domain.MapsViewModel
 import com.example.pickupanddrop.ui.theme.PickUpandDropTheme
 
 class ChooseDropLocationActivity : ComponentActivity() {
+    private val viewModel by lazy { ViewModelProvider(this)[MapsViewModel::class.java] }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -22,7 +25,10 @@ class ChooseDropLocationActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-
+                    ChooseLocationScreen(
+                        modifier = Modifier,
+                        viewModel = viewModel
+                    )
                 }
             }
         }
