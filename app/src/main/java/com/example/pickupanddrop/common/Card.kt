@@ -20,6 +20,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -45,15 +46,18 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -255,6 +259,11 @@ fun AdditionalDetails(
     widthState: MutableState<String>,
     heightState: MutableState<String>
 ) {
+    val focusRequester1 = remember { FocusRequester() }
+    val focusRequester2 = remember { FocusRequester() }
+    val focusRequester3 = remember { FocusRequester() }
+    val keyboardController = LocalSoftwareKeyboardController.current
+
     Card(
         modifier = modifier,
         shape = RoundedCornerShape(8.dp)
@@ -293,18 +302,6 @@ fun AdditionalDetails(
 
             Spacer(modifier = Modifier.height(8.dp))
 
-//            TextField(
-//                value = dimen,
-//                onValueChange = { dimen = it },
-//                label = { Text("Enter dimensions") },
-//                leadingIcon = {
-//                    Icon(
-//                        imageVector = Icons.Filled.Menu,
-//                        contentDescription = "add item detail"
-//                    )
-//                }
-//            )
-
             Text(
                 text = "Enter Dimensions (cm)",
                 fontWeight = FontWeight.Bold,
@@ -327,9 +324,14 @@ fun AdditionalDetails(
                     },
                     label = { Text("Length") },
                     modifier = Modifier
-                        .weight(1.5f),
+                        .weight(1.5f)
+                        .focusRequester(focusRequester1),
                     maxLines = 1,
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Number,
+                        imeAction = ImeAction.Next
+                    ),
+                    keyboardActions = KeyboardActions(onNext = { focusRequester2.requestFocus() })
                 )
                 Spacer(modifier = Modifier.weight(0.1f))
                 OutlinedTextField(
@@ -341,9 +343,14 @@ fun AdditionalDetails(
                     },
                     label = { Text("Width") },
                     modifier = Modifier
-                        .weight(1.5f),
+                        .weight(1.5f)
+                        .focusRequester(focusRequester2),
                     maxLines = 1,
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Number,
+                        imeAction = ImeAction.Next
+                    ),
+                    keyboardActions = KeyboardActions(onNext = { focusRequester3.requestFocus() })
                 )
                 Spacer(modifier = Modifier.weight(0.1f))
                 OutlinedTextField(
@@ -355,9 +362,14 @@ fun AdditionalDetails(
                     },
                     label = { Text("Height") },
                     modifier = Modifier
-                        .weight(1.5f),
+                        .weight(1.5f)
+                        .focusRequester(focusRequester3),
                     maxLines = 1,
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Number,
+                        imeAction = ImeAction.Done
+                    ),
+                    keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() })
                 )
                 Spacer(modifier = Modifier.weight(0.1f))
             }
