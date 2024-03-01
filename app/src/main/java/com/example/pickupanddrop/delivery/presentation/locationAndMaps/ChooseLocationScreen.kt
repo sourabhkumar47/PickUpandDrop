@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -19,6 +20,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -39,102 +41,106 @@ import java.io.IOException
 
 @Composable
 fun ChooseLocationScreen(
-    modifier: Modifier = Modifier,
     viewModel: MapsViewModel,
     navController: NavController
 ) {
     val locationName by viewModel.dropLocationName.collectAsState()
     val lat by viewModel.lat.collectAsState()
     val lng by viewModel.lng.collectAsState()
-    Column(modifier = modifier) {
-        // set maps
-        ChooseLocationFromMaps(
-            modifier = Modifier.weight(1f),
-            viewModel = viewModel
-        )
-        // name of the chosen location
-        Column(
-            modifier = Modifier
-                .weight(0.45f)
-                .background(MaterialTheme.colorScheme.background)
-        ) {
-            // latitude, longitude and drop location name
-            Text(
-                modifier = Modifier.padding(8.dp),
-                text = "$lat, $lng, $locationName",
-                fontSize = MaterialTheme.typography.headlineSmall.fontSize,
-                fontWeight = MaterialTheme.typography.headlineSmall.fontWeight,
-                fontStyle = MaterialTheme.typography.headlineSmall.fontStyle,
-                maxLines = 3,
-                overflow = TextOverflow.Ellipsis
+    Surface(
+        modifier = Modifier.fillMaxSize(),
+        color = MaterialTheme.colorScheme.background
+    ) {
+        Column(modifier = Modifier.fillMaxSize()) {
+            // set maps
+            ChooseLocationFromMaps(
+                modifier = Modifier.weight(1f),
+                viewModel = viewModel
             )
-            Spacer(modifier = Modifier.height(8.dp))
-
-            val locationData by viewModel.dropLocationData.collectAsState()
-            var ownerName by rememberSaveable {
-                mutableStateOf(locationData.ownerName)
-            }
-            var ownerPhone by rememberSaveable {
-                mutableStateOf(locationData.ownerPhoneNo)
-            }
-            Row(
-                modifier = Modifier.padding(horizontal = 8.dp),
-                horizontalArrangement = Arrangement.spacedBy(12.dp)
-            ) {
-                OutlinedTextField(
-                    modifier = Modifier.weight(0.5f),
-                    value = ownerName,
-                    onValueChange = { ownerName = it },
-                    label = { Text(text = "Owner Name") },
-                    singleLine = true
-                )
-
-                OutlinedTextField(
-                    modifier = Modifier.weight(0.5f),
-                    value = ownerPhone,
-                    onValueChange = { ownerPhone = it },
-                    label = { Text(text = "Phone No") },
-                    singleLine = true,
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
-                )
-            }
-            Spacer(modifier = Modifier.weight(1f))
-            Row(
+            // name of the chosen location
+            Column(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(end = 16.dp), horizontalArrangement = Arrangement.End
+                    .weight(0.45f)
+                    .background(MaterialTheme.colorScheme.background)
             ) {
-                // don't save details and go back
-                Button(
-                    onClick = {
-                        navController.popBackStack()
-                    },
-                    shape = RoundedCornerShape(8.dp),
-                    colors = ButtonColors(
-                        containerColor = MaterialTheme.colorScheme.secondaryContainer,
-                        contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
-                        disabledContainerColor = Color.LightGray,
-                        disabledContentColor = Color.White
+                // latitude, longitude and drop location name
+                Text(
+                    modifier = Modifier.padding(8.dp),
+                    text = "$lat, $lng, $locationName",
+                    fontSize = MaterialTheme.typography.headlineSmall.fontSize,
+                    fontWeight = MaterialTheme.typography.headlineSmall.fontWeight,
+                    fontStyle = MaterialTheme.typography.headlineSmall.fontStyle,
+                    maxLines = 3,
+                    overflow = TextOverflow.Ellipsis
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+
+                val locationData by viewModel.dropLocationData.collectAsState()
+                var ownerName by rememberSaveable {
+                    mutableStateOf(locationData.ownerName)
+                }
+                var ownerPhone by rememberSaveable {
+                    mutableStateOf(locationData.ownerPhoneNo)
+                }
+                Row(
+                    modifier = Modifier.padding(horizontal = 8.dp),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    OutlinedTextField(
+                        modifier = Modifier.weight(0.5f),
+                        value = ownerName,
+                        onValueChange = { ownerName = it },
+                        label = { Text(text = "Owner Name") },
+                        singleLine = true
                     )
-                ) {
-                    Text(text = "Cancel")
-                }
 
-                Spacer(modifier = Modifier.width(12.dp))
-
-                // Save details
-                Button(
-                    onClick = {
-                        viewModel.updateDropLocationStatus(true)
-                        viewModel.updateDropLocationData(name = ownerName, phoneNo = ownerPhone)
-                        navController.popBackStack()
-                    },
-                    shape = RoundedCornerShape(8.dp)
-                ) {
-                    Text(text = "Save")
+                    OutlinedTextField(
+                        modifier = Modifier.weight(0.5f),
+                        value = ownerPhone,
+                        onValueChange = { ownerPhone = it },
+                        label = { Text(text = "Phone No") },
+                        singleLine = true,
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                    )
                 }
+                Spacer(modifier = Modifier.weight(1f))
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(end = 16.dp), horizontalArrangement = Arrangement.End
+                ) {
+                    // don't save details and go back
+                    Button(
+                        onClick = {
+                            navController.popBackStack()
+                        },
+                        shape = RoundedCornerShape(8.dp),
+                        colors = ButtonColors(
+                            containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                            contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
+                            disabledContainerColor = Color.LightGray,
+                            disabledContentColor = Color.White
+                        )
+                    ) {
+                        Text(text = "Cancel")
+                    }
+
+                    Spacer(modifier = Modifier.width(12.dp))
+
+                    // Save details
+                    Button(
+                        onClick = {
+                            viewModel.updateDropLocationStatus(true)
+                            viewModel.updateDropLocationData(name = ownerName, phoneNo = ownerPhone)
+                            navController.popBackStack()
+                        },
+                        shape = RoundedCornerShape(8.dp)
+                    ) {
+                        Text(text = "Save")
+                    }
+                }
+                Spacer(modifier = Modifier.height(18.dp))
             }
-            Spacer(modifier = Modifier.height(18.dp))
         }
     }
 }

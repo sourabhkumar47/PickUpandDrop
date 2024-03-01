@@ -84,23 +84,6 @@ fun HomeScreen(
         }
         Spacer(modifier = Modifier.height(24.dp))
 
-        val context = LocalContext.current
-        ExtendedFloatingActionButton(
-            text = { Text(text = "Create Order") },
-            icon = {
-                Icon(
-                    painter = painterResource(id = R.drawable.baseline_add_24),
-                    contentDescription = null
-                )
-            },
-            onClick = {
-                context.startActivity(Intent(context, DeliveryDetailsActivity::class.java))
-            },
-            shape = RoundedCornerShape(50),
-            modifier = Modifier
-                .fillMaxWidth()
-                .wrapContentSize(align = Alignment.BottomEnd)
-        )
     }
 }
 
