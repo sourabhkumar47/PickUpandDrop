@@ -2,6 +2,7 @@ package com.example.pickupanddrop.presentation.checkout
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -22,6 +23,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 
@@ -31,12 +33,10 @@ fun DeliveryOption(
     desc: String,
     totalPrice: Float,
     selectedPrice: MutableState<Float>,
-    isSelected: Boolean = false,
-    selectedOption: MutableState<Boolean>,
+    selectedOption: MutableState<String>,
     onSelected: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val selectedOption = remember { mutableStateOf(isSelected) }
 
     OutlinedCard(
         modifier = modifier
@@ -44,9 +44,10 @@ fun DeliveryOption(
             .height(100.dp)
             .background(color = MaterialTheme.colorScheme.primary, RoundedCornerShape(16.dp))
             .clickable {
-                selectedOption.value = !selectedOption.value
-                if (selectedOption.value) {
+                if (selectedOption.value != text) {
+                    selectedOption.value = text
                     selectedPrice.value = totalPrice
+                    onSelected()
                 }
             }
 
@@ -56,13 +57,13 @@ fun DeliveryOption(
             modifier = Modifier.padding(top = 16.dp)
         ) {
             RadioButton(
-                selected = selectedOption.value,
+                selected = selectedOption.value == text,
                 onClick = {
-                    selectedOption.value = !selectedOption.value
-                    if (selectedOption.value) {
+                    if (selectedOption.value != text) {
+                        selectedOption.value = text
                         selectedPrice.value = totalPrice
+                        onSelected()
                     }
-                    onSelected()
                 },
                 colors = RadioButtonDefaults.colors(
                     selectedColor = Color.Blue,

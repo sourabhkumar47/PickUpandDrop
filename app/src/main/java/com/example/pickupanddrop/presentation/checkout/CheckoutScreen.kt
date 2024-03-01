@@ -1,8 +1,6 @@
 package com.example.pickupanddrop.presentation.checkout
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -55,8 +53,7 @@ fun CheckoutUI(
         val extra = 30
         val pricePerKm = 15
 
-        val selectedDeliveryOption = remember { mutableStateOf("Deliver now") }
-        val selectedOption = remember { mutableStateOf(false) }
+        val selectedDeliveryOption = remember { mutableStateOf("") }
 
         Row(
             modifier = Modifier
@@ -124,11 +121,10 @@ fun CheckoutUI(
                 desc = "We will assign a delivery partner immediately",
                 totalPrice = distance * pricePerKm + extra,
                 selectedPrice = selectedPrice,
-                isSelected = selectedDeliveryOption.value == "Deliver now",
-                selectedOption = selectedOption,
+                selectedOption = selectedDeliveryOption,
                 onSelected = {
                     selectedDeliveryOption.value = "Deliver now"
-                    selectedOption.value = true
+                    selectedPrice.floatValue = distance * pricePerKm + extra
                 }
             )
 
@@ -140,11 +136,10 @@ fun CheckoutUI(
                         "delivery partner 15 mins before the scheduled time",
                 totalPrice = distance * pricePerKm,
                 selectedPrice = selectedPrice,
-                isSelected = selectedDeliveryOption.value == "Schedule pickup",
-                selectedOption = selectedOption,
+                selectedOption = selectedDeliveryOption,
                 onSelected = {
                     selectedDeliveryOption.value = "Schedule pickup"
-                    selectedOption.value = false
+                    selectedPrice.floatValue = distance * pricePerKm
                 }
             )
         }
