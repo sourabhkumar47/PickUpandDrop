@@ -69,11 +69,13 @@ fun ChooseLocationScreen(
                 overflow = TextOverflow.Ellipsis
             )
             Spacer(modifier = Modifier.height(8.dp))
+
+            val locationData by viewModel.dropLocationData.collectAsState()
             var ownerName by rememberSaveable {
-                mutableStateOf("")
+                mutableStateOf(locationData.ownerName)
             }
             var ownerPhone by rememberSaveable {
-                mutableStateOf("")
+                mutableStateOf(locationData.ownerPhoneNo)
             }
             Row(
                 modifier = Modifier.padding(horizontal = 8.dp),

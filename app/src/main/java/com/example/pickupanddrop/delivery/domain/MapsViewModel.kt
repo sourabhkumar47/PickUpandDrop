@@ -26,7 +26,7 @@ class MapsViewModel: ViewModel() {
     val isDropLocationAdded get() = _isDropLocationAdded
 
     // location details
-    var _dropLocationData = MutableStateFlow(LocationData())
+    private var _dropLocationData = MutableStateFlow(LocationData())
     val dropLocationData get() = _dropLocationData
 
     // update latitude
