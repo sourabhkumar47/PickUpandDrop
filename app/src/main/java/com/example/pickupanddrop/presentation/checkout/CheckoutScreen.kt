@@ -50,7 +50,6 @@ fun CheckoutUI(
         modifier = modifier
             .fillMaxWidth()
             .fillMaxHeight(),
-//        verticalArrangement = Arrangement.SpaceBetween
     ) {
 
         val extra = 30
@@ -174,7 +173,6 @@ fun CheckoutUI(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-//                    .background(color = MaterialTheme.colorScheme.onPrimaryContainer)
                     .padding(all = 16.dp)
             ) {
                 Coupon(text = "Coupon Applied", discount = "10% off")
@@ -189,13 +187,10 @@ fun CheckoutUI(
             OutlinedCard(
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
-//                    .fillMaxWidth()
-//                    .padding(vertical = 8.dp)
             ) {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-//                    .background(color = MaterialTheme.colorScheme.background)
                         .padding(all = 16.dp)
                 ) {
                     Text(
