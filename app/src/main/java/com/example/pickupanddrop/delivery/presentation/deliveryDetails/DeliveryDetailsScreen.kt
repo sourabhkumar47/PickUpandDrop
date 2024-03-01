@@ -3,11 +3,14 @@ package com.example.pickupanddrop.delivery.presentation.deliveryDetails
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -32,6 +35,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
+import com.example.pickupanddrop.delivery.components.LocationTraceView
 
 @Composable
 fun DeliveryDetailsScreen(
@@ -52,39 +56,51 @@ fun DeliveryDetailsScreen(
                 fontWeight = MaterialTheme.typography.headlineLarge.fontWeight
             )
             Spacer(modifier = Modifier.height(18.dp))
-
-            LocationDetailsCard(
-                locationData = LocationData(
-                    locationType = "PICKUP LOCATION",
-                    franchiseName = "Petuk Ji G.Noida Franchise,",
-                    franchiseLocation = "IT waala digital success D, 296 Greater Noida Wandra",
-                    ownerName = "Vinay",
-                    ownerPhoneNo = "7970783256",
-                    otpFor = "pickup"
-                )
-            ) {
-                navController.navigate("choose_location")
-            }
-
-            Spacer(modifier = Modifier.height(12.dp))
-
-            val isDropLocationAdded by viewModel.isDropLocationAdded.collectAsState()
-
-            val locationData by viewModel.dropLocationData.collectAsState()
-
-            if (isDropLocationAdded)
-                LocationDetailsCard(locationData = locationData) {
-                    navController.navigate("choose_location")
+            Row {
+                Column(modifier = Modifier.padding(top = 12.dp)) {
+                    LocationTraceView(lineHeight = 162.dp)
                 }
 
-            if (!isDropLocationAdded)
-                DropLocationCard(modifier = Modifier
-                    .fillMaxWidth()
-                    .clickable {
-                        navController.navigate("choose_location")
-                    })
+                Spacer(modifier = Modifier.width(8.dp))
 
-            Spacer(modifier = Modifier.height(16.dp))
+                Column {
+
+                    LocationDetailsCard(
+                        locationData = LocationData(
+                            locationType = "PICKUP LOCATION",
+                            franchiseName = "Petuk Ji G.Noida Franchise,",
+                            franchiseLocation = "IT waala digital success D, 296 Greater Noida Wandra",
+                            ownerName = "Vinay",
+                            ownerPhoneNo = "7970783256",
+                            otpFor = "pickup"
+                        )
+                    ) {
+                        navController.navigate("choose_location")
+                    }
+
+                    Spacer(modifier = Modifier.height(12.dp))
+
+                    val isDropLocationAdded by viewModel.isDropLocationAdded.collectAsState()
+
+                    val locationData by viewModel.dropLocationData.collectAsState()
+
+                    if (isDropLocationAdded)
+                        LocationDetailsCard(locationData = locationData) {
+                            navController.navigate("choose_location")
+                        }
+
+                    if (!isDropLocationAdded)
+                        DropLocationCard(modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable {
+                                navController.navigate("choose_location")
+                            })
+                }
+            }
+
+
+
+            Spacer(modifier = Modifier.height(32.dp))
 
             AdditionalDetails(
                 lengthState = remember { mutableStateOf("") },
