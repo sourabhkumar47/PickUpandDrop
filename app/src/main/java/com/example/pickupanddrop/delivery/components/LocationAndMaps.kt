@@ -85,3 +85,47 @@ fun ChooseLocationFromMaps(
         }
     }
 }
+
+
+@Composable
+fun LocationTraceView(modifier: Modifier = Modifier, lineHeight: Dp) {
+    Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally) {
+        Column(modifier = Modifier
+            .size(16.dp)
+            .background(MaterialTheme.colorScheme.primary.copy(0.8f), CircleShape)) {
+            Icon(
+                imageVector = Icons.Filled.KeyboardArrowUp,
+                contentDescription = "pickup location",
+                tint = Color.White
+            )
+        }
+        DashedLine(modifier = Modifier.height(lineHeight))
+        Column(modifier = Modifier
+            .size(16.dp)
+            .background(Color.Green.copy(0.8f), CircleShape)) {
+            Icon(
+                imageVector = Icons.Filled.KeyboardArrowDown,
+                contentDescription = "pickup location",
+                tint = Color.White
+            )
+        }
+    }
+}
+
+@Composable
+fun DashedLine(modifier: Modifier = Modifier) {
+    val pathEffect = PathEffect.dashPathEffect(floatArrayOf(9f, 9f), 0f)
+    Canvas(
+        modifier
+            .width(1.dp)
+    ) {
+
+        drawLine(
+            color = Color.LightGray,
+            start = Offset(0f, 0f),
+            end = Offset(0f, size.height),
+            pathEffect = pathEffect,
+            strokeWidth = 5f
+        )
+    }
+}
