@@ -47,8 +47,7 @@ fun LocationDetailsCard(
     ElevatedCard(
         modifier = modifier.border(1.dp, Color.Gray.copy(0.5f), RoundedCornerShape(8.dp)),
         shape = RoundedCornerShape(8.dp),
-
-        ) {
+    ) {
         Column() {
             // pick up location and owner details
             Column(

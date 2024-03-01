@@ -1,5 +1,6 @@
 package com.example.pickupanddrop.common
 
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -24,6 +25,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Call
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardElevation
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ElevatedCard
@@ -33,6 +35,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
@@ -42,7 +45,9 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
@@ -257,6 +262,7 @@ fun AdditionalDetails(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
+                .background(MaterialTheme.colorScheme.primaryContainer.copy(0.3f))
                 .padding(16.dp)
         ) {
 
@@ -266,15 +272,17 @@ fun AdditionalDetails(
             Text(
                 text = "Additional Details",
                 fontWeight = FontWeight.Bold,
-                fontSize = MaterialTheme.typography.bodyLarge.fontSize
+                fontSize = MaterialTheme.typography.headlineSmall.fontSize,
+                fontStyle = MaterialTheme.typography.headlineSmall.fontStyle
             )
 
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(12.dp))
 
             TextField(
                 value = item,
                 onValueChange = { item = it },
                 label = { Text("Enter item detail") },
+                maxLines = 4,
                 leadingIcon = {
                     Icon(
                         imageVector = Icons.Filled.Add,
