@@ -56,9 +56,12 @@ fun CheckoutUI(
         val extra = 30
         val pricePerKm = 15
 
+        val selectedDeliveryOption = remember { mutableStateOf("Deliver now") }
+        val selectedOption = remember { mutableStateOf(false) }
+
         Row(
             modifier = Modifier
-                .padding(top = 16.dp, bottom = 8.dp, end = 16.dp)
+                .padding(bottom = 8.dp, end = 16.dp)
                 .background(color = MaterialTheme.colorScheme.background)
         ) {
             Text(
@@ -122,7 +125,12 @@ fun CheckoutUI(
                 desc = "We will assign a delivery partner immediately",
                 totalPrice = distance * pricePerKm + extra,
                 selectedPrice = selectedPrice,
-                isSelected = true
+                isSelected = selectedDeliveryOption.value == "Deliver now",
+                selectedOption = selectedOption,
+                onSelected = {
+                    selectedDeliveryOption.value = "Deliver now"
+                    selectedOption.value = true
+                }
             )
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -132,7 +140,13 @@ fun CheckoutUI(
                 desc = "We will We will start looking for " +
                         "delivery partner 15 mins before the scheduled time",
                 totalPrice = distance * pricePerKm,
-                selectedPrice = selectedPrice
+                selectedPrice = selectedPrice,
+                isSelected = selectedDeliveryOption.value == "Schedule pickup",
+                selectedOption = selectedOption,
+                onSelected = {
+                    selectedDeliveryOption.value = "Schedule pickup"
+                    selectedOption.value = false
+                }
             )
         }
 
@@ -170,11 +184,12 @@ fun CheckoutUI(
 
         Box(
             modifier = modifier
-                .fillMaxSize()) {
+                .fillMaxSize()
+        ) {
             OutlinedCard(
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
-                    .fillMaxWidth()
+//                    .fillMaxWidth()
 //                    .padding(vertical = 8.dp)
             ) {
                 Row(
@@ -188,91 +203,13 @@ fun CheckoutUI(
                         style = MaterialTheme.typography.headlineLarge,
                         modifier = Modifier.weight(0.5f)
                     )
-                    Button(onClick = { /* Handle button click */ }) {
+                    Button(
+                        onClick = { }
+                    ) {
                         Text(text = "Pay Now")
                     }
                 }
             }
-        }
-
-//        Row(
-//            modifier = Modifier
-//                .fillMaxWidth()
-//                .padding(horizontal = 16.dp)
-//                .clickable(onClick = { /* Handle click on View Invoice */ })
-//        ) {
-//            Text(text = "View Invoice", style = MaterialTheme.typography.bodySmall)
-//            Icon(Icons.AutoMirrored.Filled.ArrowForward, contentDescription = "View Invoice")
-//        }
-    }
-}
-
-
-@Composable
-fun DeliveryOption(
-    text: String,
-    desc: String,
-    totalPrice: Float,
-    selectedPrice: MutableState<Float>,
-    isSelected: Boolean = false,
-    modifier: Modifier = Modifier
-) {
-    val selectedOption = remember { mutableStateOf(isSelected) }
-
-    OutlinedCard(
-        modifier = modifier
-            .fillMaxWidth()
-            .height(100.dp)
-            .background(color = MaterialTheme.colorScheme.primary, RoundedCornerShape(16.dp))
-            .clickable {
-                selectedOption.value = !selectedOption.value
-                if (selectedOption.value) {
-                    selectedPrice.value = totalPrice
-                }
-            }
-
-    ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(top = 16.dp)
-        ) {
-            RadioButton(
-                selected = selectedOption.value,
-                onClick = {
-                    selectedOption.value = !selectedOption.value
-                    if (selectedOption.value) {
-                        selectedPrice.value = totalPrice
-                    }
-                },
-                colors = RadioButtonDefaults.colors(
-                    selectedColor = Color.Blue,
-                    unselectedColor = Color.Gray
-                ),
-                modifier = Modifier.padding(start = 8.dp)
-            )
-
-            Column {
-                Text(
-                    text = text,
-                    style = MaterialTheme.typography.bodyMedium,
-                    modifier = Modifier.width(200.dp)
-
-                )
-
-                Spacer(modifier = Modifier.height(4.dp))
-
-                Text(
-                    text = desc,
-                    style = MaterialTheme.typography.bodySmall,
-                    modifier = Modifier.width(250.dp)
-                )
-            }
-
-            Text(
-                text = totalPrice.toString(),
-                style = MaterialTheme.typography.labelLarge,
-                color = Color.Black
-            )
         }
     }
 }
