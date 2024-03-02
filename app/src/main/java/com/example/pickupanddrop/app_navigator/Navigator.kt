@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -100,6 +101,7 @@ fun AppNavigator() {
                 onClick = {
                     context.startActivity(Intent(context, DeliveryDetailsActivity::class.java))
                 },
+                containerColor = MaterialTheme.colorScheme.primary,
                 shape = RoundedCornerShape(50),
                 modifier = Modifier
                     .fillMaxWidth()
