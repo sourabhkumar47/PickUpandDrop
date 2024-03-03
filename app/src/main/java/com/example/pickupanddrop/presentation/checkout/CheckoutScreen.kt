@@ -84,7 +84,7 @@ fun CheckoutUI(
                 modifier = Modifier
                     .padding(8.dp)
                     .background(color = colorResource(id = R.color.grey))
-                    .clip(shape = RoundedCornerShape(160.dp))
+                    .clip(shape = RoundedCornerShape(50.dp))
             )
         }
 
@@ -149,8 +149,9 @@ fun CheckoutUI(
 
         Text(
             text = "Offers & Coupons",
-            style = MaterialTheme.typography.headlineMedium
+            style = MaterialTheme.typography.headlineLarge
         )
+        Spacer(modifier = Modifier.height(8.dp))
 
         Column(
             modifier = Modifier
@@ -159,14 +160,15 @@ fun CheckoutUI(
                 .background(Color.DarkGray)
         ) {}
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(8.dp))
 
         OfferCard(
-            text = "D4WELCOME",
-            discount = "20",
-            onApplyClicked = {},
-            onShowAllOffersClicked = {}
-        )
+            discount = Discount(
+                discountCode = "FLAT50",
+                discountAmount = 50,
+            ),
+            onApplyClicked = {  },
+            onShowAllOffersClicked = {  })
 
         Box(
             modifier = modifier

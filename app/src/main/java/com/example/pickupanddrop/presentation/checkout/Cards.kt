@@ -114,8 +114,9 @@ fun DeliveryOption(
 
 @Composable
 fun OfferCard(
-    text: String,
-    discount: String,
+//    text: String,
+    discount: Discount,
+//    discount: String,
     onApplyClicked: () -> Unit,
     onShowAllOffersClicked: () -> Unit,
     modifier: Modifier = Modifier
@@ -130,8 +131,8 @@ fun OfferCard(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = text,
-                    fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                    text = discount.discountCode,
+                    fontSize = MaterialTheme.typography.headlineMedium.fontSize,
                     modifier = Modifier.weight(1f)
                 )
                 Button(
@@ -158,8 +159,8 @@ fun OfferCard(
                 Spacer(modifier = Modifier.width(4.dp))
 
                 Text(
-                    text = "Get ₹$discount off on this order",
-                    style = MaterialTheme.typography.bodyMedium,
+                    text = "Get ₹${discount.discountAmount} off on this order",
+                    style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.primary
                 )
             }
@@ -199,8 +200,10 @@ fun OfferCard(
 @Composable
 fun OfferCardPreview() {
     OfferCard(
-        text = "D4WELCOME",
-        discount = "20",
+        discount = Discount(
+            discountCode = "FLAT50",
+            discountAmount = 50
+        ),
         onApplyClicked = {},
         onShowAllOffersClicked = {}
     )
