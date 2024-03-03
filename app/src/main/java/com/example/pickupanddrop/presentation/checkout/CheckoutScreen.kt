@@ -42,12 +42,13 @@ fun CheckoutUI(
     drops: Int,
     distance: Float,
     totalPrice: Float,
-    modifier: Modifier = Modifier.padding(16.dp)
+    modifier: Modifier = Modifier
 ) {
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .fillMaxHeight(),
+            .fillMaxHeight()
+            .padding(16.dp)
     ) {
 
         val extra = 30
@@ -144,12 +145,11 @@ fun CheckoutUI(
             )
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(24.dp))
 
         Text(
             text = "Offers & Coupons",
-            style = MaterialTheme.typography.headlineMedium,
-            modifier = Modifier.padding(vertical = 8.dp)
+            style = MaterialTheme.typography.headlineMedium
         )
 
         Column(
@@ -159,21 +159,14 @@ fun CheckoutUI(
                 .background(Color.DarkGray)
         ) {}
 
+        Spacer(modifier = Modifier.height(16.dp))
 
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 8.dp)
-        ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(all = 16.dp)
-            ) {
-                Coupon(text = "Coupon Applied", discount = "10% off")
-                Coupon(text = "Offers", discount = "5% off")
-            }
-        }
+        OfferCard(
+            text = "D4WELCOME",
+            discount = "20",
+            onApplyClicked = {},
+            onShowAllOffersClicked = {}
+        )
 
         Box(
             modifier = modifier
@@ -201,15 +194,6 @@ fun CheckoutUI(
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Coupon(text: String, discount: String, modifier: Modifier = Modifier) {
-    Row(modifier = modifier.padding(vertical = 8.dp)) {
-        Text(text = text, style = MaterialTheme.typography.bodySmall)
-        Spacer(modifier = Modifier.weight(1f))
-        Text(text = discount, style = MaterialTheme.typography.bodySmall)
     }
 }
 
