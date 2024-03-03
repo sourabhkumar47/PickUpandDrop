@@ -11,12 +11,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Divider
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.KeyboardArrowRight
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.RadioButton
@@ -114,9 +114,7 @@ fun DeliveryOption(
 
 @Composable
 fun OfferCard(
-//    text: String,
     discount: Discount,
-//    discount: String,
     onApplyClicked: () -> Unit,
     onShowAllOffersClicked: () -> Unit,
     modifier: Modifier = Modifier
@@ -132,7 +130,7 @@ fun OfferCard(
             ) {
                 Text(
                     text = discount.discountCode,
-                    fontSize = MaterialTheme.typography.headlineMedium.fontSize,
+                    fontSize = MaterialTheme.typography.headlineSmall.fontSize,
                     modifier = Modifier.weight(1f)
                 )
                 Button(
@@ -165,12 +163,12 @@ fun OfferCard(
                 )
             }
 
-            Divider(
+            HorizontalDivider(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 8.dp),
-                color = Color.LightGray,
-                thickness = 2.dp
+                thickness = 2.dp,
+                color = Color.LightGray
             )
 
             Spacer(modifier = Modifier.height(8.dp))
@@ -188,7 +186,7 @@ fun OfferCard(
                 Spacer(modifier = Modifier.width(0.2.dp))
 
                 Image(
-                    imageVector = Icons.Default.KeyboardArrowRight,
+                    imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
                     contentDescription = null,
                 )
             }
