@@ -85,4 +85,7 @@ dependencies {
     //Carousel
     implementation ("com.google.accompanist:accompanist-pager:0.34.0")
     implementation ("com.google.accompanist:accompanist-pager-indicators:0.34.0")
+
+    //Shapes
+    implementation ("androidx.graphics:graphics-shapes:1.0.0-alpha05")
 }

@@ -1,5 +1,6 @@
 package com.example.pickupanddrop.presentation.checkout
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -27,6 +29,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.pickupanddrop.R
@@ -57,29 +60,38 @@ fun CheckoutUI(
         ) {
             Text(
                 text = "Checkout",
-                style = MaterialTheme.typography.headlineLarge,
+                fontSize = MaterialTheme.typography.headlineMedium.fontSize,
+                fontStyle = MaterialTheme.typography.headlineMedium.fontStyle,
                 modifier = Modifier.weight(1f)
             )
 
-            Text(
-                text = " $drops DROP ",
-                style = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier
-                    .padding(8.dp)
+            Box(
+                modifier = modifier
+                    .clip(RoundedCornerShape(8.dp))
                     .background(color = colorResource(id = R.color.grey))
-                    .clip(
-                        RoundedCornerShape(160.dp)
-                    )
-            )
-            Spacer(modifier = Modifier.width(1.dp))
-            Text(
-                text = " $distance KM ",
-                style = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier
                     .padding(8.dp)
+            ) {
+                Text(
+                    text = " $drops DROP ",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = Color.Black
+                )
+            }
+
+            Spacer(modifier = Modifier.width(2.5.dp))
+
+            Box(
+                modifier = modifier
+                    .clip(RoundedCornerShape(8.dp))
                     .background(color = colorResource(id = R.color.grey))
-                    .clip(shape = RoundedCornerShape(50.dp))
-            )
+                    .padding(8.dp)
+            ) {
+                Text(
+                    text = " $distance KM ",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = Color.Black
+                )
+            }
         }
 
         Column(
@@ -141,10 +153,29 @@ fun CheckoutUI(
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        Text(
-            text = "Offers & Coupons",
-            style = MaterialTheme.typography.headlineLarge
-        )
+        Row(
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.offer),
+                contentDescription = null,
+                modifier = Modifier.size(36.dp)
+            )
+
+            Spacer(modifier = Modifier.width(4.dp))
+
+            Text(
+                text = "Offers & Coupons",
+                fontSize = MaterialTheme.typography.headlineMedium.fontSize,
+                fontStyle = MaterialTheme.typography.headlineMedium.fontStyle
+            )
+
+            Spacer(modifier = Modifier.width(4.dp))
+
+            NewButton()
+
+        }
+
         Spacer(modifier = Modifier.height(8.dp))
 
         Column(
@@ -161,8 +192,8 @@ fun CheckoutUI(
                 discountCode = "FLAT50",
                 discountAmount = 50,
             ),
-            onApplyClicked = {  },
-            onShowAllOffersClicked = {  })
+            onApplyClicked = { },
+            onShowAllOffersClicked = { })
 
         Box(
             modifier = modifier

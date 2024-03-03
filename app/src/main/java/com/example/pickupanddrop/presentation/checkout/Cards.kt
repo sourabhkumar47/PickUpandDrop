@@ -3,6 +3,7 @@ package com.example.pickupanddrop.presentation.checkout
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -26,12 +27,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.pickupanddrop.R
+import androidx.compose.foundation.layout.size
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.sp
 
 
 @Composable
@@ -194,7 +201,36 @@ fun OfferCard(
     }
 }
 
-@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun NewButton(
+    modifier: Modifier = Modifier,
+) {
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = modifier
+            .clip(RoundedCornerShape(topStart = 16.dp, bottomEnd = 16.dp))
+            .background(colorResource(id = R.color.orange))
+            .padding(horizontal = 8.dp, vertical = 4.dp)
+            .width(40.dp)
+            .height(18.dp)
+    ) {
+        Text(
+            text = "NEW",
+            fontWeight = FontWeight.Normal,
+            fontSize = MaterialTheme.typography.headlineMedium.copy(fontSize = 16.sp).fontSize,
+            fontStyle = MaterialTheme.typography.headlineMedium.fontStyle,
+            color = Color.Black
+        )
+    }
+}
+
+@Preview
+@Composable
+fun NewButtonPreview() {
+    NewButton()
+}
+
+@Preview(showBackground = true)
 @Composable
 fun OfferCardPreview() {
     OfferCard(
