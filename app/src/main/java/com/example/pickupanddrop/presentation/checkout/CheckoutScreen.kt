@@ -33,12 +33,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.pickupanddrop.R
+import com.example.pickupanddrop.delivery.domain.location.calculateDistance
+import com.google.android.gms.maps.model.LatLng
 
 @Composable
 fun CheckoutUI(
-    drops: Int,
-    distance: Float,
-    totalPrice: Float,
+    checkout: Checkout,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -72,7 +72,7 @@ fun CheckoutUI(
                     .padding(8.dp)
             ) {
                 Text(
-                    text = " $drops DROP ",
+                    text = " ${checkout.drops} DROP ",
                     style = MaterialTheme.typography.bodyMedium,
                     color = Color.Black
                 )
@@ -87,7 +87,7 @@ fun CheckoutUI(
                     .padding(8.dp)
             ) {
                 Text(
-                    text = " $distance KM ",
+                    text = " ${checkout.distance} KM ",
                     style = MaterialTheme.typography.bodyMedium,
                     color = Color.Black
                 )
@@ -126,12 +126,12 @@ fun CheckoutUI(
             DeliveryOption(
                 text = "Deliver now",
                 desc = "We will assign a delivery partner immediately",
-                totalPrice = distance * pricePerKm + extra,
+                totalPrice = checkout.distance * pricePerKm + extra,
                 selectedPrice = selectedPrice,
                 selectedOption = selectedDeliveryOption,
                 onSelected = {
                     selectedDeliveryOption.value = "Deliver now"
-                    selectedPrice.floatValue = distance * pricePerKm + extra
+                    selectedPrice.floatValue = checkout.distance * pricePerKm + extra
                 }
             )
 
@@ -141,12 +141,12 @@ fun CheckoutUI(
                 text = "Schedule pickup",
                 desc = "We will We will start looking for " +
                         "delivery partner 15 mins before the scheduled time",
-                totalPrice = distance * pricePerKm,
+                totalPrice = checkout.distance * pricePerKm,
                 selectedPrice = selectedPrice,
                 selectedOption = selectedDeliveryOption,
                 onSelected = {
                     selectedDeliveryOption.value = "Schedule pickup"
-                    selectedPrice.floatValue = distance * pricePerKm
+                    selectedPrice.floatValue = checkout.distance * pricePerKm
                 }
             )
         }
@@ -227,8 +227,9 @@ fun CheckoutUI(
 @Composable
 fun CheckoutUIPreview() {
     CheckoutUI(
-        drops = 1,
-        distance = 10.0f,
-        totalPrice = 14.0f
+        checkout = Checkout(
+            drops = 2,
+            distance = 10f
+        )
     )
 }

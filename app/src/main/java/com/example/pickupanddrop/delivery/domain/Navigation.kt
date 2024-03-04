@@ -10,6 +10,7 @@ import androidx.navigation.compose.composable
 import com.example.pickupanddrop.delivery.components.ChooseLocationFromMaps
 import com.example.pickupanddrop.delivery.presentation.deliveryDetails.DeliveryDetailsScreen
 import com.example.pickupanddrop.delivery.presentation.locationAndMaps.ChooseLocationScreen
+import com.example.pickupanddrop.presentation.checkout.Checkout
 import com.example.pickupanddrop.presentation.checkout.CheckoutUI
 
 @Composable
@@ -26,11 +27,7 @@ fun NavigationForMaps(
         }
 
         composable("checkout") { // Add this composable
-            CheckoutUI(
-                drops = 1,
-                distance = 10.0f,
-                totalPrice = 14.0f
-            )
+            CheckoutUI(checkout  = Checkout())
         }
     }
 }
