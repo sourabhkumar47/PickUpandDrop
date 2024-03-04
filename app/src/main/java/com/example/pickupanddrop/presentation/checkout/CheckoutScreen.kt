@@ -195,13 +195,12 @@ fun CheckoutUI(
             onApplyClicked = { },
             onShowAllOffersClicked = { })
 
-        Box(
-            modifier = modifier
-                .fillMaxSize()
+        Column(
+            modifier = Modifier
         ) {
+            Spacer(modifier = Modifier.weight(1f))
             OutlinedCard(
                 modifier = Modifier
-                    .align(Alignment.BottomCenter)
             ) {
                 Row(
                     modifier = Modifier
