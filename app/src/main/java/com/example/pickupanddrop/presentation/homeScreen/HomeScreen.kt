@@ -13,7 +13,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
@@ -45,12 +47,13 @@ fun HomeScreen(
         modifier = Modifier
             .fillMaxSize()
             .padding(all = 16.dp)
+            .verticalScroll(rememberScrollState())
             .statusBarsPadding()
     ) {
 
         Carousel()
 
-//        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(24.dp))
 
         Card(
             modifier = Modifier
@@ -83,6 +86,23 @@ fun HomeScreen(
         }
         Spacer(modifier = Modifier.height(24.dp))
 
+        val context = LocalContext.current
+        ExtendedFloatingActionButton(
+            text = { Text(text = "Create Order") },
+            icon = {
+                Icon(
+                    painter = painterResource(id = R.drawable.baseline_add_24),
+                    contentDescription = null
+                )
+            },
+            onClick = {
+                context.startActivity(Intent(context, DeliveryDetailsActivity::class.java))
+            },
+            shape = RoundedCornerShape(50),
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentSize(align = Alignment.BottomEnd)
+        )
     }
 }
 
