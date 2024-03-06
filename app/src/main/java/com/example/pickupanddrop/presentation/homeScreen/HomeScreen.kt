@@ -23,6 +23,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -39,6 +40,8 @@ fun HomeScreen(
     navigateToUpcoming: () -> Unit
 ) {
     Column(
+        verticalArrangement = Arrangement.SpaceBetween,
+        horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .fillMaxSize()
             .padding(all = 16.dp)
@@ -47,7 +50,7 @@ fun HomeScreen(
 
         Carousel()
 
-        Spacer(modifier = Modifier.height(24.dp))
+//        Spacer(modifier = Modifier.height(24.dp))
 
         Card(
             modifier = Modifier
@@ -62,10 +65,12 @@ fun HomeScreen(
                 Image(
                     painter = painterResource(id = R.drawable.empty),
                     contentDescription = "No order",
-                    contentScale = ContentScale.FillBounds,
+
                     modifier = Modifier
-                        .width(360.dp)
-                        .height(350.dp)
+                        .fillMaxWidth()
+                        .scale(1.7f)
+                        .align(alignment = Alignment.CenterHorizontally)
+
                 )
 
                 Text(
