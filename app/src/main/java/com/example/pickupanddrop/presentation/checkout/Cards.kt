@@ -25,19 +25,19 @@ import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.pickupanddrop.R
-import androidx.compose.foundation.layout.size
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.sp
 
 
@@ -122,10 +122,13 @@ fun DeliveryOption(
 @Composable
 fun OfferCard(
     discount: Discount,
+    appliedDiscount: MutableState<Boolean>,
     onApplyClicked: () -> Unit,
     onShowAllOffersClicked: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val applied = remember { mutableStateOf(false) }
+
     Card(
         modifier = modifier
             .fillMaxWidth()
@@ -141,13 +144,20 @@ fun OfferCard(
                     modifier = Modifier.weight(1f)
                 )
                 Button(
-                    onClick = onApplyClicked,
+                    onClick = {
+                        onApplyClicked()
+                        appliedDiscount.value = !appliedDiscount.value
+//                        applied.value = !applied.value
+                    },
                     colors = ButtonDefaults.outlinedButtonColors()
                 ) {
                     Text(
-                        text = "APPLY",
+                        text = if (appliedDiscount.value) "APPLIED" else "APPLY",
                         fontSize = MaterialTheme.typography.bodyLarge.fontSize,
-                        color = colorResource(id = R.color.lightBlue)
+                        fontWeight = FontWeight.Bold,
+                        color =
+                        if (appliedDiscount.value) colorResource(id = R.color.grey)
+                        else colorResource(id = R.color.lightBlue)
                     )
                 }
             }
@@ -239,6 +249,7 @@ fun OfferCardPreview() {
             discountAmount = 50
         ),
         onApplyClicked = {},
+        appliedDiscount = remember { mutableStateOf(false) },
         onShowAllOffersClicked = {}
     )
 }

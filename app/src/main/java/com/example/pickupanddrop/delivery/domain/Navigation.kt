@@ -12,6 +12,7 @@ import com.example.pickupanddrop.delivery.presentation.deliveryDetails.DeliveryD
 import com.example.pickupanddrop.delivery.presentation.locationAndMaps.ChooseLocationScreen
 import com.example.pickupanddrop.presentation.checkout.Checkout
 import com.example.pickupanddrop.presentation.checkout.CheckoutUI
+import com.example.pickupanddrop.presentation.checkout.Discount
 
 @Composable
 fun NavigationForMaps(
@@ -27,7 +28,7 @@ fun NavigationForMaps(
         }
 
         composable("checkout") { // Add this composable
-            CheckoutUI(checkout  = Checkout())
+            CheckoutUI(checkout  = Checkout(), discount = Discount())
         }
     }
 }

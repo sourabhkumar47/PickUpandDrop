@@ -39,6 +39,7 @@ import com.google.android.gms.maps.model.LatLng
 @Composable
 fun CheckoutUI(
     checkout: Checkout,
+    discount: Discount,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -51,7 +52,7 @@ fun CheckoutUI(
         val extra = 30
         val pricePerKm = 15
 
-        val selectedDeliveryOption = remember { mutableStateOf("") }
+        checkout.distance = 10f
 
         Row(
             modifier = Modifier
@@ -121,6 +122,18 @@ fun CheckoutUI(
 
         val selectedPrice = remember { mutableFloatStateOf(0f) }
 
+        val selectedDeliveryOption = remember { mutableStateOf("") }
+        val discountedPrice = remember { mutableFloatStateOf(0f) }
+
+        val appliedDiscount = remember { mutableStateOf(false) }
+
+        val calculateSelectedPrice: (Float) -> Unit = { price ->
+            selectedPrice.floatValue = price
+            if (!appliedDiscount.value) {
+                discountedPrice.floatValue = price
+            }
+        }
+
         Column {
 
             DeliveryOption(
@@ -131,7 +144,10 @@ fun CheckoutUI(
                 selectedOption = selectedDeliveryOption,
                 onSelected = {
                     selectedDeliveryOption.value = "Deliver now"
-                    selectedPrice.floatValue = checkout.distance * pricePerKm + extra
+//                    selectedPrice.floatValue = checkout.distance * pricePerKm + extra
+                    val newPrice = checkout.distance * pricePerKm + extra
+                    selectedPrice.floatValue = newPrice
+//                    discountedPrice.floatValue = newPrice
                 }
             )
 
@@ -146,7 +162,10 @@ fun CheckoutUI(
                 selectedOption = selectedDeliveryOption,
                 onSelected = {
                     selectedDeliveryOption.value = "Schedule pickup"
-                    selectedPrice.floatValue = checkout.distance * pricePerKm
+//                    selectedPrice.floatValue = checkout.distance * pricePerKm
+                    val newPrice = checkout.distance * pricePerKm
+                    selectedPrice.floatValue = newPrice
+//                    discountedPrice.floatValue = newPrice
                 }
             )
         }
@@ -192,8 +211,23 @@ fun CheckoutUI(
                 discountCode = "FLAT50",
                 discountAmount = 50,
             ),
-            onApplyClicked = { },
+            appliedDiscount = appliedDiscount,
+            onApplyClicked = {
+//                appliedDiscount.value = !appliedDiscount.value
+//                if (appliedDiscount.value) {
+//                    discountedPrice.floatValue = selectedPrice.floatValue - discount.discountAmount
+//                } else {
+//                    discountedPrice.floatValue = selectedPrice.floatValue
+//                }
+            },
             onShowAllOffersClicked = { })
+
+        // Calculate final price after applying discount
+        val finalPrice = if (appliedDiscount.value) {
+            selectedPrice.floatValue - discount.discountAmount
+        } else {
+            selectedPrice.floatValue
+        }
 
         Column(
             modifier = Modifier
@@ -208,7 +242,7 @@ fun CheckoutUI(
                         .padding(all = 16.dp)
                 ) {
                     Text(
-                        text = "${selectedPrice.floatValue}",
+                        text = "₹${finalPrice}",
                         style = MaterialTheme.typography.headlineLarge,
                         modifier = Modifier.weight(0.5f)
                     )
@@ -230,6 +264,10 @@ fun CheckoutUIPreview() {
         checkout = Checkout(
             drops = 2,
             distance = 10f
+        ),
+        discount = Discount(
+            discountCode = "FLAT50",
+            discountAmount = 50
         )
     )
 }
