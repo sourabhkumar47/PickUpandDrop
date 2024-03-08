@@ -13,7 +13,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
@@ -23,6 +25,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -39,9 +42,12 @@ fun HomeScreen(
     navigateToUpcoming: () -> Unit
 ) {
     Column(
+        verticalArrangement = Arrangement.SpaceBetween,
+        horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .fillMaxSize()
             .padding(all = 16.dp)
+            .verticalScroll(rememberScrollState())
             .statusBarsPadding()
     ) {
 
@@ -62,10 +68,12 @@ fun HomeScreen(
                 Image(
                     painter = painterResource(id = R.drawable.empty),
                     contentDescription = "No order",
-                    contentScale = ContentScale.FillBounds,
+
                     modifier = Modifier
-                        .width(360.dp)
-                        .height(350.dp)
+                        .fillMaxWidth()
+                        .scale(1.7f)
+                        .align(alignment = Alignment.CenterHorizontally)
+
                 )
 
                 Text(
@@ -78,6 +86,23 @@ fun HomeScreen(
         }
         Spacer(modifier = Modifier.height(24.dp))
 
+        val context = LocalContext.current
+        ExtendedFloatingActionButton(
+            text = { Text(text = "Create Order") },
+            icon = {
+                Icon(
+                    painter = painterResource(id = R.drawable.baseline_add_24),
+                    contentDescription = null
+                )
+            },
+            onClick = {
+                context.startActivity(Intent(context, DeliveryDetailsActivity::class.java))
+            },
+            shape = RoundedCornerShape(50),
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentSize(align = Alignment.BottomEnd)
+        )
     }
 }
 
