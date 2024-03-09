@@ -81,7 +81,6 @@ fun CheckoutUI(
 
             Spacer(modifier = Modifier.width(2.5.dp))
 
-
             Box(
                 modifier = modifier
                     .clip(RoundedCornerShape(8.dp))
