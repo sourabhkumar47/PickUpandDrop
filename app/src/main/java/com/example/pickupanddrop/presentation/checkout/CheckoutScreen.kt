@@ -23,6 +23,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -42,6 +43,15 @@ fun CheckoutUI(
     discount: Discount,
     modifier: Modifier = Modifier
 ) {
+
+    val selectedPrice = rememberSaveable { mutableFloatStateOf(0f) }
+
+    val selectedDeliveryOption = rememberSaveable { mutableStateOf("") }
+
+    val discountedPrice = rememberSaveable { mutableFloatStateOf(0f) }
+
+    val appliedDiscount = rememberSaveable { mutableStateOf(false) }
+
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -120,12 +130,6 @@ fun CheckoutUI(
 
         Spacer(modifier = Modifier.height(12.dp))
 
-        val selectedPrice = remember { mutableFloatStateOf(0f) }
-
-        val selectedDeliveryOption = remember { mutableStateOf("") }
-        val discountedPrice = remember { mutableFloatStateOf(0f) }
-
-        val appliedDiscount = remember { mutableStateOf(false) }
 
         val calculateSelectedPrice: (Float) -> Unit = { price ->
             selectedPrice.floatValue = price
@@ -213,7 +217,7 @@ fun CheckoutUI(
             ),
             appliedDiscount = appliedDiscount,
             onApplyClicked = {
-//                appliedDiscount.value = !appliedDiscount.value
+                appliedDiscount.value = !appliedDiscount.value
 //                if (appliedDiscount.value) {
 //                    discountedPrice.floatValue = selectedPrice.floatValue - discount.discountAmount
 //                } else {

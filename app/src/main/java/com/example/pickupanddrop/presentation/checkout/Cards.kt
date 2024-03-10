@@ -146,8 +146,7 @@ fun OfferCard(
                 Button(
                     onClick = {
                         onApplyClicked()
-                        appliedDiscount.value = !appliedDiscount.value
-//                        applied.value = !applied.value
+//                        appliedDiscount.value = !appliedDiscount.value
                     },
                     colors = ButtonDefaults.outlinedButtonColors()
                 ) {
