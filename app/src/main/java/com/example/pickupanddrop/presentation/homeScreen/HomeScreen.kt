@@ -1,5 +1,6 @@
 package com.example.pickupanddrop.presentation.homeScreen
 
+import android.app.Activity
 import android.content.Intent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -33,6 +34,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.app.ActivityCompat.startActivityForResult
 import com.example.pickupanddrop.R
 import com.example.pickupanddrop.common.ClickableCard
 import com.example.pickupanddrop.delivery.presentation.deliveryDetails.DeliveryDetailsActivity
@@ -41,6 +43,10 @@ import com.example.pickupanddrop.delivery.presentation.deliveryDetails.DeliveryD
 fun HomeScreen(
     navigateToUpcoming: () -> Unit
 ) {
+
+    val context = LocalContext.current
+    val activity = context as Activity
+
     Column(
         verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -86,7 +92,6 @@ fun HomeScreen(
         }
         Spacer(modifier = Modifier.height(24.dp))
 
-        val context = LocalContext.current
         ExtendedFloatingActionButton(
             text = { Text(text = "Create Order") },
             icon = {
@@ -96,7 +101,8 @@ fun HomeScreen(
                 )
             },
             onClick = {
-                context.startActivity(Intent(context, DeliveryDetailsActivity::class.java))
+                val intent = Intent(context, DeliveryDetailsActivity::class.java)
+                startActivityForResult(activity, intent, 0, null)
             },
             shape = RoundedCornerShape(50),
             modifier = Modifier
